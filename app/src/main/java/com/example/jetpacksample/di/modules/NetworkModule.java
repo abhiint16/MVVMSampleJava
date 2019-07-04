@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
@@ -43,6 +44,18 @@ public class NetworkModule {
 
     @Provides
     @Singleton
+    Gson provideGsonFactory() {
+        return new GsonBuilder().create();
+    }
+
+    @Provides
+    @Singleton
+    GsonConverterFactory provideGson(Gson gson) {
+        return GsonConverterFactory.create(gson);
+    }
+
+    @Provides
+    @Singleton
     OkHttpClient provideOkHttpClient(Cache cache,
                                      HttpLoggingInterceptor interceptor,
                                      Interceptor retryInterceptor) {
@@ -55,9 +68,9 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
+    Retrofit provideRetrofit(GsonConverterFactory gsonConverterFactory, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(baseUrl)
                 .client(okHttpClient)

@@ -22,7 +22,14 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
+    Context context;
+
+    public ApplicationModule(Application application) {
+        this.context = application;
+    }
+
     @Provides
+    @Singleton
     public Context providesApplicationContext(Application application) {
         return application;
     }
@@ -73,12 +80,6 @@ public class ApplicationModule {
     @Singleton
     PreferenceHelper providesPreferenceHelper(PreferenceHelperImpl preferenceHelper) {
         return preferenceHelper;
-    }
-
-    @Provides
-    @Singleton
-    Context providesContext(Application application) {
-        return application;
     }
 
 }

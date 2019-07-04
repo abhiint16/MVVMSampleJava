@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.example.jetpacksample.di.AppComponent;
 import com.example.jetpacksample.di.DaggerAppComponent;
+import com.example.jetpacksample.di.modules.ApplicationModule;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,7 @@ public class JetpackApplication extends Application implements HasActivityInject
 
     private void initDagger() {
         appComponent = DaggerAppComponent.builder()
+                .applicationModule(new ApplicationModule(this))
                 .build();
     }
 
