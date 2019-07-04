@@ -1,4 +1,4 @@
-package com.example.jetpacksample.di;
+package com.example.jetpacksample.di.modules;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.example.jetpacksample.di;
+package com.example.jetpacksample.di.builder;
 
 import dagger.Module;
 
