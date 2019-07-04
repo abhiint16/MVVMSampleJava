@@ -32,7 +32,6 @@ public class NetworkModule {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         return logging;
-
     }
 
     @Provides
