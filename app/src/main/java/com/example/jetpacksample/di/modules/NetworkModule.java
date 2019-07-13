@@ -3,8 +3,11 @@ package com.example.jetpacksample.di.modules;
 import android.app.Application;
 
 import com.example.jetpacksample.BuildConfig;
+import com.example.jetpacksample.di.qualifier.BaseUrl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
 
 import javax.inject.Singleton;
 
@@ -13,6 +16,8 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -20,7 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetworkModule {
-    private String baseUrl;
 
     /**
      * The @Singleton annotation is used to declare to Dagger that the provided object is to be only
@@ -36,6 +40,8 @@ public class NetworkModule {
         return logging;
     }
 
+    @BaseUrl
+    @Provides
     public String providesBaseUrl() {
         return BuildConfig.BASE_URL;
     }
@@ -73,7 +79,21 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(GsonConverterFactory gsonConverterFactory, OkHttpClient okHttpClient) {
+    Interceptor providesInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                Response response = chain.proceed(request);
+                return response;
+            }
+        };
+    }
+
+    @Provides
+    @Singleton
+    Retrofit provideRetrofit(GsonConverterFactory gsonConverterFactory, OkHttpClient okHttpClient,
+                             @BaseUrl String baseUrl) {
         return new Retrofit.Builder()
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

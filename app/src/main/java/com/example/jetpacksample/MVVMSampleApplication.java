@@ -13,7 +13,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 
-public class JetpackApplication extends Application implements HasActivityInjector {
+public class MVVMSampleApplication extends Application implements HasActivityInjector {
 
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
@@ -29,6 +29,7 @@ public class JetpackApplication extends Application implements HasActivityInject
     private void initDagger() {
         appComponent = DaggerAppComponent.builder().application(this)
                 .build();
+        appComponent.inject(this);
     }
 
     @Override

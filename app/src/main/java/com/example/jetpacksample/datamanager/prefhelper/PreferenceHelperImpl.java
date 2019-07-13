@@ -3,6 +3,8 @@ package com.example.jetpacksample.datamanager.prefhelper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.jetpacksample.di.qualifier.PreferenceName;
+
 import javax.inject.Inject;
 
 /**
@@ -14,7 +16,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private SharedPreferences sharedPreferences;
 
     @Inject
-    public PreferenceHelperImpl(Context context, String prefName) {
+    public PreferenceHelperImpl(Context context, @PreferenceName String prefName) {
         this.context = context;
         this.prefName = prefName;
         sharedPreferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);

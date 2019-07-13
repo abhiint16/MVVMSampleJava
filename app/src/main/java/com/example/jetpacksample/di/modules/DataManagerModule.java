@@ -1,24 +1,22 @@
 package com.example.jetpacksample.di.modules;
 
-import android.app.Application;
-import android.content.Context;
-
-import androidx.room.Room;
-
-import com.example.jetpacksample.JetpackApplication;
+import com.example.jetpacksample.AppConstants;
 import com.example.jetpacksample.datamanager.DataManager;
 import com.example.jetpacksample.datamanager.DataManagerImpl;
 import com.example.jetpacksample.datamanager.apihelper.ApiHelper;
 import com.example.jetpacksample.datamanager.apihelper.ApiHelperImpl;
+import com.example.jetpacksample.datamanager.apihelper.ApiService;
 import com.example.jetpacksample.datamanager.dbhelper.DBHelper;
 import com.example.jetpacksample.datamanager.dbhelper.DBHelperImpl;
 import com.example.jetpacksample.datamanager.prefhelper.PreferenceHelper;
 import com.example.jetpacksample.datamanager.prefhelper.PreferenceHelperImpl;
+import com.example.jetpacksample.di.qualifier.PreferenceName;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
 
 @Module
 public class DataManagerModule {
@@ -69,6 +67,18 @@ public class DataManagerModule {
     @Singleton
     PreferenceHelper providesPreferenceHelper(PreferenceHelperImpl preferenceHelper) {
         return preferenceHelper;
+    }
+
+    @Provides
+    @Singleton
+    ApiService provideAPIRetrofitInstance(Retrofit retrofit) {
+        return retrofit.create(ApiService.class);
+    }
+
+    @PreferenceName
+    @Provides
+    String providesSharedPrefName(){
+        return AppConstants.SHARED_PREFERENCE_NAME;
     }
 
 }
