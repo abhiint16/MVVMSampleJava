@@ -27,6 +27,11 @@ public class NetworkModule {
         this.baseUrl = baseUrl;
     }
 
+    /**
+     * The @Singleton annotation is used to declare to Dagger that the provided object is to be only
+     * initialized only once during the entire lifecycle of the *Component* which uses that Module.
+     * @return
+     */
     @Singleton
     @Provides
     public HttpLoggingInterceptor provideHttpLoggingInterceptor() {
