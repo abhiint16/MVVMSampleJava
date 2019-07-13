@@ -5,6 +5,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.example.jetpacksample.JetpackApplication;
 import com.example.jetpacksample.datamanager.DataManager;
 import com.example.jetpacksample.datamanager.DataManagerImpl;
 import com.example.jetpacksample.datamanager.apihelper.ApiHelper;
@@ -20,19 +21,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ApplicationModule {
-
-    Context context;
-
-    public ApplicationModule(Application application) {
-        this.context = application;
-    }
-
-    @Provides
-    @Singleton
-    public Context providesApplicationContext(Application application) {
-        return application;
-    }
+public class DataManagerModule {
 
     /**
      * Provides Data Manager instance

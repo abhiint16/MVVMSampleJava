@@ -24,6 +24,29 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        local {
+            versionNameSuffix ".local"
+            buildConfigField 'String', 'BASE_URL', '"http://yourdomain.com"'
+        }
+
+        dev {
+            versionNameSuffix ".dev"
+            buildConfigField 'String', 'BASE_URL', '"http://yourdomain.com"'
+        }
+
+        staging {
+            versionNameSuffix ".stage"
+            buildConfigField 'String', 'BASE_URL', '"https://yourdomain.com"'
+        }
+
+        prod {
+            versionNameSuffix ".prod"
+            buildConfigField 'String', 'BASE_URL', '"https://yourdomain.com"'
+        }
+    }
 }
 
 dependencies {

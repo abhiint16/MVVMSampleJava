@@ -2,8 +2,7 @@ package com.example.jetpacksample.di.modules;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
-
+import com.example.jetpacksample.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,13 +22,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
     private String baseUrl;
 
-    public NetworkModule(@NonNull String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
-
     /**
      * The @Singleton annotation is used to declare to Dagger that the provided object is to be only
      * initialized only once during the entire lifecycle of the *Component* which uses that Module.
+     *
      * @return
      */
     @Singleton
@@ -38,6 +34,10 @@ public class NetworkModule {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         return logging;
+    }
+
+    public String providesBaseUrl() {
+        return BuildConfig.BASE_URL;
     }
 
     @Provides
