@@ -1,4 +1,4 @@
-package com.example.jetpacksample.views.model;
+package com.example.jetpacksample.views.di;
 
 import androidx.lifecycle.ViewModelProvider;
 

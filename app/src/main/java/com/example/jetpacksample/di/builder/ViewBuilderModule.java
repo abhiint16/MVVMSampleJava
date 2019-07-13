@@ -1,7 +1,7 @@
 package com.example.jetpacksample.di.builder;
 
 import com.example.jetpacksample.views.HomeActivity;
-import com.example.jetpacksample.views.model.HomeActivityModule;
+import com.example.jetpacksample.views.di.HomeActivityModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
